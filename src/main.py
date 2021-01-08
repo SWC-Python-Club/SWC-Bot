@@ -1,24 +1,23 @@
+#!../bin/python3
+
 import discord
 from discord.ext import commands
 
 import requests
 import json
+import os
 
-bot = commands.Bot(command_prefix='$')
+import git
 
-@bot.command()
-async def version():
-    await ctx.send(embed=discord.Embed(
-            title="SWC Python Bot",
-            description="1.0"))
+import helpers
 
-@bot.command()
-async def git(name):
-    repositories = requests.get("https://api.github.com/orgs/SWC-Python-Club/repos")
-    if name not in json.dump(repositories):
-        ctx.send(embed=discord.Embed(
-            title="Error",
-            description="unable to fetch repository"))
-    else:
-        pass
+prefix = '.'
+bot = commands.Bot(command_prefix=prefix)
 
+@bot.event
+async def on_ready():
+    await bot.change_presence(activity=discord.Game(name=prefix + "help"))
+
+bot.add_command(git.version)
+bot.add_command(git.git)
+bot.run(os.environ["token"])
