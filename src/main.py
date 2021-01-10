@@ -7,7 +7,7 @@ import requests
 import json
 import os
 
-import git
+import fetches
 
 import helpers
 
@@ -33,15 +33,11 @@ async def on_message(message):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         print("Unrecognized command")
-        await ctx.send(embed=discord.Embed(
-            title="Error",
-            description="Unrecognized command!!!",
-            color=0xff0000
-            ))
+        await ctx.send(embed=helpers.UnknownCommandError(ctx.message.content).embed())
 
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name=prefix + "help"))
 
-bot.add_cog(git.fetches())
+bot.add_cog(fetches.fetches())
 bot.run(os.environ["token"])
