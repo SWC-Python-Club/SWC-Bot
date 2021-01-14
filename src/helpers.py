@@ -5,12 +5,15 @@ colors = {
         "ok": 0x0761c2
 }
 
+def log(message):
+    print("[INFO]", message)
+
 class error:
     def __init__(self, name, description):
         self.title = name
         self.description = description
     def embed(self):
-        print("making embed..")
+        log("making embed..") 
         return Embed(
                 title="Error",
                 description = f"**{self.title}**\n{self.description}",
