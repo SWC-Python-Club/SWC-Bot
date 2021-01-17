@@ -4,6 +4,8 @@ import discord
 from discord.ext import commands
 
 import requests
+from requests.auth import HTTPBasicAuth
+
 import json
 import os
 
@@ -27,8 +29,8 @@ async def on_message(message):
     if message.author != bot.user:
         if "vim" in message.content.lower():
             await message.channel.send("The best editor!!!")
-    
-    await bot.process_commands(message)
+       
+        await bot.process_commands(message)
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -38,6 +40,8 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_ready():
+    requests.get('https://api.github.com/', auth=HTTPBasicAuth('AndreiSva', os.environ["passwd"]))
+    log("bot successfully authenticated")
     await bot.change_presence(activity=discord.Game(name=prefix + "help"))
 
 
