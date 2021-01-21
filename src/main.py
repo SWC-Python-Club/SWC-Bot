@@ -57,5 +57,6 @@ bot.add_cog(utilities.utilities())
 
 bot.add_cog(event_cog())
 
+log("starting bot")
 log("bot online")
 bot.run(os.environ["token"])
