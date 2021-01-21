@@ -14,8 +14,6 @@ from helpers import log
 
 from gimages import get_google_img
 
-import subprocess
-
 class fetches(commands.Cog):
     '''a set of tools to display information about a number of things'''
     @commands.command()
@@ -35,8 +33,7 @@ class fetches(commands.Cog):
         
                 fetch = discord.Embed(title=repo["full_name"], description="https://github.com/" + repo["full_name"] + "\n\n" + repo["description"])
                 
-                # this is an absolutely atrocious way of doing this... but I've already spent 2 hours trying to get this to work in a better way :/ 
-                fetch.set_thumbnail(url=subprocess.run(['~/Downloads/git/SWC-Bot/src/gimages.py', '{language} Programming Language Icon PNG'], stdout=subprocess.PIPE).stdout)
+                fetch.set_thumbnail(url=get_google_img(language + " lang icon png"))
                 fetch.add_field(name="created", value=created.strftime('%A %b %d, %Y at %H:%M GMT'), inline=True)
                 fetch.add_field(name="last commit", value=last_commit.strftime('%A %b %d, %Y at %H:%M GMT'), inline=True)
                 fetch.add_field(name="owner", value=repo["owner"]["login"], inline=True)

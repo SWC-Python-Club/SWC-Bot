@@ -24,7 +24,7 @@ class ArgumentError(error):
         self.argc = argc
         self.min_args = min_args
     def as_embed(self):
-        if self.argc <= min_args:
+        if self.argc <= self.min_args:
             return error.embed(self, "ArgumentError", f"Please enter at least {self.argc} argument")
         else: 
             return error.embed(self, "ArgumentError", f"Please enter at least {self.argc} arguments")
