@@ -27,6 +27,9 @@ async def version(ctx):
 
 @bot.event
 async def on_message(message):
+    if message.content  == "...":
+        return
+
     if message.author != bot.user:
         if "vim" in message.content.lower():
             await message.channel.send("The best editor!!!")
