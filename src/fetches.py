@@ -21,7 +21,7 @@ def read_repo_data(repo):
     last_commit = datetime.datetime.strptime(repo["updated_at"], "%Y-%m-%dT%H:%M:%SZ")
     created = datetime.datetime.strptime(repo["created_at"], "%Y-%m-%dT%H:%M:%SZ")
     log("fetched information...")
-    language = max(requests.get(repo["languages_url"]).json())
+    language = min(requests.get(repo["languages_url"]).json())
     fetch = discord.Embed(title=repo["full_name"], description="https://github.com/" + repo["full_name"] + "\n\n" + repo["description"])
                 
     fetch.set_thumbnail(url=get_google_img(language + " lang icon png"))
